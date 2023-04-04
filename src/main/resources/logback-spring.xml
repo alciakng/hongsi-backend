@@ -4,8 +4,8 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <!--로그 파일 저장 위치-->
-    <property name="LOG_FILE" value="${logging.file.path}"/>
-    <property name="LOG_PATTERN" value="${logging.file.pattern}"/>
+    <property name="LOG_FILE" value="./logs/logback/client.log/spring.log"/>
+    <property name="LOG_PATTERN" value="%-5level %d{yy-MM-dd HH:mm:ss}[%thread] [%logger{0}:%line] - %msg%n"/>
 
     <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE}</file>
@@ -24,7 +24,20 @@
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ROLLING-FILE"/>
     </logger>
-    <root level="debug">
+    <!--질의문 예쁘게 보기-->
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
+    <!--질의문 파라미터 보기-->
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+    <!--hikari 로그 보기-->
+    <logger name="com.zaxxer.hikari" level="DEBUG"/>
+    <!--트랜잭션 로그보기-->
+    <logger name="org.hibernate.transaction.JDBCTransaction" level="DEBUG"/>
+    <logger name="org.hibernate.jdbc.ConnectionManager" level="DEBUG"/>
+    <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="DEBUG"/>
+
+
+
+    <root level="info">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ROLLING-FILE"/>
     </root>

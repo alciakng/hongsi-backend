@@ -55,8 +55,8 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                      .requestMatchers("/users/signin","/users/signup","/error","/actuator").permitAll()
-                      .anyRequest().authenticated()); // 다른 url은 인증 후에 접근가능
+                      .requestMatchers("/users/signin","/users/signup","/error","/actuator","h2-console").permitAll()
+                      .anyRequest().permitAll()); // 다른 url은 인증 후에 접근가능
 
         http
                 .exceptionHandling((exceptions) -> exceptions

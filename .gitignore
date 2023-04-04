@@ -5,6 +5,14 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### gradle ###
+gradlew
+gradlew.bat
+
+### DS_Store ###
+.DS_Store
+src/.DS_Store
+
 ### STS ###
 .apt_generated
 .classpath
@@ -38,8 +46,17 @@ out/
 
 
 ### application.yml, application.properties ###
-*.yml
+application.yml
 application.properties
 
 ### fcm ###
 hongsi-fcm.json
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+
+#log
+/logs/
