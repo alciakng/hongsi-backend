@@ -4,4 +4,4 @@ services:
     #build: .
     image: 266004188366.dkr.ecr.ap-northeast-2.amazonaws.com/hongsi:1.0.3
     ports:
-      - "8090:5000"
+      - "5000:5000"

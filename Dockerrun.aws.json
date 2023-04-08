@@ -2,6 +2,6 @@
   "AWSEBDockerrunVersion": "3",
   "Authentication": {
     "bucket": "elasticbeanstalk-ap-northeast-2-266004188366",
-    "key": "ecr-config"
+    "key": "/ecr-auth/ecr-config.json"
   }
 }
