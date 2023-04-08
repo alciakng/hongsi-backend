@@ -2,6 +2,6 @@ version: '3.9'
 services:
   beanstalk-web:
     #build: .
-    image: 266004188366.dkr.ecr.ap-northeast-2.amazonaws.com/hongsi:1.0.1
+    image: 266004188366.dkr.ecr.ap-northeast-2.amazonaws.com/hongsi:1.0.3
     ports:
       - "8090:5000"
