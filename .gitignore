@@ -60,3 +60,6 @@ hongsi-fcm.json
 
 #log
 logs
+
+#aws Dockerrun.aws.json
+Dockerrun.aws.json
