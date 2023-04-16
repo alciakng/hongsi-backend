@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -64,9 +65,11 @@ public class UserService {
         // Step1. 토큰추출
         String token = jwtProvider.resolveToken()
                                   .orElseThrow(()->new RuntimeException("토큰을 추출하는데 실패하였습니다. 네트워크 상태를 확인해주세요."));
+        // Step2. userDetails
+        //UserDetails userDetails = (UserDetails) jwtProvider.getAuthentication(token).getPrincipal();
 
         // Step2. email로 유저 탐색
-        AppUser appUser = userRepository.findByEmail(jwtProvider.getAuthentication(token).getName());
+        AppUser appUser = userRepository.findByEmail(jwtProvider.getSubject(token));
 
         // Step3. 유저가 없는 경우 Exception 발생 처리
         if(appUser == null){

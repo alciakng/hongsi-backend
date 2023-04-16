@@ -3,8 +3,7 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/test/**/build/
-
+!**/src/test/**/build
 ### gradle ###
 gradlew
 gradlew.bat
@@ -47,6 +46,8 @@ out/
 
 ### application.yml, application.properties ###
 application.yml
+application-local.yml
+application-prod.yml
 application.properties
 
 ### fcm ###
@@ -59,4 +60,4 @@ hongsi-fcm.json
 
 
 #log
-/logs/
+logs

@@ -59,7 +59,7 @@ public final class JwtProvider {
     /**
      * 토큰에서 인증 Subject 추출
      */
-    private String getSubject(String token) {
+    public String getSubject(String token) {
         return getClaimsFormToken(token).getSubject();
     }
 
