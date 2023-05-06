@@ -1,7 +1,12 @@
 version: '3.9'
 services:
   beanstalk-web:
-    build: .
-    #image: 266004188366.dkr.ecr.ap-northeast-2.amazonaws.com/hongsi:1.0.4
+    #build: .  #로컬실행시
+    image: 266004188366.dkr.ecr.ap-northeast-2.amazonaws.com/hongsi:1.0.6  #elb 실행시 (배포시)
     ports:
       - "5000:5000"
+    #environment: #로컬실행시 환경변수 설정
+     #- RDS_DBNAME=ebdb
+     #- RDS_HOSTNAME=awseb-e-abv4j3bpdr-stack-awsebrdsdatabase-jafnk8frnps1.cevmbljqkktp.ap-northeast-2.rds.amazonaws.com
+    env_file: #elb 실행시 (배포시 - elb 환경변수를 참조한다 - .env는 elb에서 자동으로 만들어준다)
+      - .env

@@ -13,14 +13,13 @@ import com.example.userservice.Service.Common.CommonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
-import io.sentry.Sentry;
-import io.sentry.protocol.User;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.env.Environment;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,9 +85,9 @@ public class OAuthService {
         // Step2. S3 Bucket 에 업로드
         String url = commonService.uploadFile(FileCategory.PROFILE.getName(),multipartFile);
         // Step3. URL 경로 셋팅 및 프로바이더 셋팅
-        appUser.setProfilePicture(url);
+        appUser.setProfilePicPath(url);
         // 로그인 제공자 셋팅
-        appUser.setProvider(provider);
+        appUser.setChannel(provider);
 
         // Step4. 토큰 발급
         final TokenDTO tokenDTO = createToken(appUser).orElseThrow(()->new JwtException("토큰이 생성되지 않았습니다."));
@@ -103,9 +102,10 @@ public class OAuthService {
 
     public Optional<OAuthProfile> oAuthProfile(OAuthRequestDTO oauthRequestDTO) throws JsonProcessingException {
 
+
         HttpHeaders headers =  new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.set("Authorization", "Bearer " + oauthRequestDTO.getAccessToken());
+        headers.add("Content-type", MediaType.APPLICATION_FORM_URLENCODED +";charset=UTF-8");
+        headers.add("Authorization", "Bearer " + oauthRequestDTO.getAccessToken());
 
         // Provider 존재 체크
         OAuthProvider provider = oauthRequestDTO.getProvider();
@@ -121,12 +121,15 @@ public class OAuthService {
         if(requestUrl == null)
             throw new RuntimeException("소셜 프로파일을 가져올 requestUrl이 정의되지 않았습니다.");
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(requestBody, headers);
+
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
         try {
             // HTTP 요청
             ResponseEntity<String> response = restTemplate.postForEntity(requestUrl, request, String.class);
+
             if (response.getStatusCode() == HttpStatus.OK) {
                 Map<String, Object> attributes = mapper.readValue(response.getBody(), Map.class);
                 return Optional.ofNullable(OAuthProfileFactory.getOAuthUserInfo(provider,attributes));

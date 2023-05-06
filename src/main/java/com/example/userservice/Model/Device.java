@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="TU003")
+@Table(name="TU003_USER_DEVICE")
 @Getter // Create getters and setters
 @Setter
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class Device {
     private String token;   // 토큰
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="uid")
     private AppUser user;
 
 }

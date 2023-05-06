@@ -18,11 +18,10 @@ import java.io.IOException;
 public class OAuthController {
     private final OAuthService oAuthService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<Object> oAuthLogin(@RequestBody OAuthRequestDTO oAuthRequestDTO) throws IOException {
         TokenDTO tokenDTO = oAuthService.oAuthLogin(oAuthRequestDTO);
         return ApiResponse.ApiSuccess(tokenDTO);
     }
-
 
 }

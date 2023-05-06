@@ -52,8 +52,9 @@ public class UserController {
 
     @PostMapping(value = "/profile")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    public UserResponseDTO saveProfile(UserDataDTO userDataDTO){
-        return userService.saveProfile(userDataDTO);
+    public ResponseEntity<Object>  saveProfile(@RequestBody UserDataDTO userDataDTO){
+        UserResponseDTO userResponseDTO = userService.saveProfile(userDataDTO);
+        return ApiResponse.ApiSuccess(userResponseDTO);
     }
 
 

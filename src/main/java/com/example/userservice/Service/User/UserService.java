@@ -87,7 +87,7 @@ public class UserService {
         // Step2. 유저정보 변경 or 추가정보 저장
         userRepository.save(appUser);
         // Step3. 변경된 유저정보 리턴
-        return modelMapper.map(appUser,UserResponseDTO.class);
+        return modelMapper.map(userRepository.findByEmail(userDataDTO.getEmail()),UserResponseDTO.class);
     }
 
     public void delete(String username) {

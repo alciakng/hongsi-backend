@@ -70,7 +70,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 // Step1. Request Header에서 Access Token 추출
                 String jwt = jwtProvider.resolveToken().orElseThrow(() -> new JwtException("토큰을 추출하는데 실패하였습니다.(토큰 미존재)"));
                 // Step3. 토큰 유효성 체크
-                Date expireTime = jwtProvider.isValidToken(jwt);
+                jwtProvider.isValidToken(jwt);
 
                 System.out.println("jwt 통과");
                 // Step4. 토큰으로 인증 정보를 추출

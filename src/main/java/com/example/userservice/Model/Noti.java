@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="TU004")
+@Table(name="TU004_DEVICE_FCM_MESSAGE")
 @Getter // Create getters and setters
 @Setter
 @NoArgsConstructor
@@ -33,7 +33,7 @@ public class Noti {
     private String topic; // 토픽
 
     @ManyToOne
-    @JoinColumn(name="device_id")
+    @JoinColumn(name="did")
     private Device device;
 
 }

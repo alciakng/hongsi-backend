@@ -10,12 +10,7 @@ public interface UserRepository extends JpaRepository<AppUser, Integer> {
 
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);
-
-    boolean existsByEmailAndProvider(String email, String provider);
-    AppUser findByUsername(String username);
     AppUser findByEmail(String email);
-
-
     @Transactional
     void deleteByUsername(String username);
 
