@@ -21,6 +21,9 @@
 
 <<프로젝트 구조>>
 
+<img width="351" alt="image" src="https://user-images.githubusercontent.com/10395170/236609630-811a24ef-5707-4864-a022-ddec332cf945.png">
+
+
 - [Common] - Utility 성 공통 
            - 공통 응답객체 (CommonResponse)
 - [Config] - Aws Config - FirebaseConfig(FCM)
